@@ -21,6 +21,8 @@ namespace MyWebApp.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            _logger.LogInformation("GET is called.");
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
@@ -28,6 +30,14 @@ namespace MyWebApp.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost(Name = "PostWeatherForecast")]
+        public WeatherForecast Post(WeatherForecast weatherForecast) {
+
+            _logger.LogInformation("POST is called. weatherForecast = " + weatherForecast);
+
+            return weatherForecast;
         }
     }
 }
